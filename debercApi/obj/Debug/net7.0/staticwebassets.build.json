@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "mDOkXlagw9nGx2Lo2cTeEJ+7K0ndPyQwY0aTrYCs5so=",
+  "Source": "debercApi",
+  "BasePath": "_content/debercApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
