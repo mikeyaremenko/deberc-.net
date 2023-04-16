@@ -3,10 +3,10 @@ namespace debercApi.Services.PlayerService;
 
 public interface IPlayerService
 {
-    List<Player> GetAll();
-    Player Get(int id);
-    List<Player> Add(Player player);
-    List<Player> Update(int id, Player requestPlayer);
-    List<Player> Remove(int id);
+    Task<List<Player>> GetAll();
+    Task<Player?> Get(int id);
+    Task<int?> Add(Player player);
+    Task<bool> Update(int id, Player requestPlayer);
+    Task<bool> Remove(int id);
 }
 

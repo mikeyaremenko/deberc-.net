@@ -4,50 +4,61 @@ namespace debercApi.Services.PlayerService;
 
 public class PlayerService : IPlayerService
 {
-    private static List<Player> players = new()
-    {
-        new Player { Id = 1, Name = "Mischa", Password = "secret", Index = 0 },
-        new Player { Id = 2, Name = "Alex", Password = "secret", Index = 1 }
-    };
+    private readonly DataContext _context;
 
-    public List<Player> Add(Player player)
+    public PlayerService(DataContext context)
     {
-        players.Add(player);
-        return players;
+        this._context = context;
     }
 
-    public Player Get(int id)
+    public async Task<int?> Add(Player player)
     {
-        var player = players.Find(p => p.Id == id);
-        return player is null ? null : player;
+        var createdPlayer = _context.Players.Add(player);
+        await _context.SaveChangesAsync();
+        return createdPlayer?.Entity.Id;
     }
 
-    public List<Player> GetAll()
+    public async Task<Player?> Get(int id)
     {
-        return players;
+        var players = await GetPlayers();
+        return players.Find(p => p.Id == id);
     }
 
-    public List<Player> Remove(int id)
+    public async Task<List<Player>> GetAll()
     {
+        return await GetPlayers();
+    }
+
+    public async Task<bool> Remove(int id)
+    {
+        var players = await GetPlayers();
         var player = players.Find(p => p.Id == id);
         if (player is null)
-            return null;
+            return false;
 
         players.Remove(player);
-        return players;
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public List<Player> Update(int id, Player requestPlayer)
+    public async Task<bool> Update(int id, Player requestPlayer)
     {
+        var players = await GetPlayers();
         var player = players.Find(p => p.Id == id);
         if (player is null)
-            return null;
+            return false;
 
         player.Name = requestPlayer.Name;
         player.Password = requestPlayer.Password;
         player.Index = requestPlayer.Index;
+        await _context.SaveChangesAsync();
 
-        return players;
+        return true;
     }
+
+    private async Task<List<Player>> GetPlayers()
+    {
+        return await _context.Players.ToListAsync();
+    }        
 }
 

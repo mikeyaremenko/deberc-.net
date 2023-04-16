@@ -26,28 +26,6 @@ namespace debercApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cards",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    Suit = table.Column<int>(type: "int", nullable: false),
-                    Weight = table.Column<int>(type: "int", nullable: false),
-                    OrderNumber = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cards", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cards_Player_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "Player",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Team",
                 columns: table => new
                 {
@@ -102,6 +80,29 @@ namespace debercApi.Migrations
                         name: "FK_Games_Team_SecondTeamId",
                         column: x => x.SecondTeamId,
                         principalTable: "Team",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    Suit = table.Column<int>(type: "int", nullable: false),
+                    Weight = table.Column<int>(type: "int", nullable: false),
+                    OrderNumber = table.Column<int>(type: "int", nullable: false),
+                    OwnerId = table.Column<int>(type: "int", nullable: true),
+                    TrickId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cards_Player_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "Player",
                         principalColumn: "Id");
                 });
 
@@ -212,6 +213,11 @@ namespace debercApi.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cards_TrickId",
+                table: "Cards",
+                column: "TrickId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Combinations_GameRoundId",
                 table: "Combinations",
                 column: "GameRoundId");
@@ -285,13 +291,59 @@ namespace debercApi.Migrations
                 name: "IX_Trick_WinnerTeamId",
                 table: "Trick",
                 column: "WinnerTeamId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Cards_Trick_TrickId",
+                table: "Cards",
+                column: "TrickId",
+                principalTable: "Trick",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Cards_Player_OwnerId",
+                table: "Cards");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Games_Player_DealerId",
+                table: "Games");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Round_Player_DutyPlayerId",
+                table: "Round");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Round_Player_OrderPlayerId",
+                table: "Round");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Round_Player_VotePlayerId",
+                table: "Round");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Team_Player_FirstPlayerId",
+                table: "Team");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Team_Player_SecondPlayerId",
+                table: "Team");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Trick_Player_StarterPlayerId",
+                table: "Trick");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Cards_Trick_TrickId",
+                table: "Cards");
+
             migrationBuilder.DropTable(
                 name: "Combinations");
+
+            migrationBuilder.DropTable(
+                name: "Player");
 
             migrationBuilder.DropTable(
                 name: "Trick");
@@ -307,9 +359,6 @@ namespace debercApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Team");
-
-            migrationBuilder.DropTable(
-                name: "Player");
         }
     }
 }

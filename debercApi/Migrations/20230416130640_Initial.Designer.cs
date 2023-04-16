@@ -12,7 +12,7 @@ using debercApi.Data;
 namespace debercApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230413172953_Initial")]
+    [Migration("20230416130640_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -47,12 +47,17 @@ namespace debercApi.Migrations
                     b.Property<int>("Suit")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TrickId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("TrickId");
 
                     b.ToTable("Cards");
                 });
@@ -260,6 +265,10 @@ namespace debercApi.Migrations
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
+                    b.HasOne("debercApi.Models.Trick", null)
+                        .WithMany("Cards")
+                        .HasForeignKey("TrickId");
+
                     b.Navigation("Owner");
                 });
 
@@ -378,6 +387,11 @@ namespace debercApi.Migrations
                     b.Navigation("Combinations");
 
                     b.Navigation("Tricks");
+                });
+
+            modelBuilder.Entity("debercApi.Models.Trick", b =>
+                {
+                    b.Navigation("Cards");
                 });
 #pragma warning restore 612, 618
         }
