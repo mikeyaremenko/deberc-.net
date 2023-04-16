@@ -13,38 +13,35 @@ public class PlayerService : IPlayerService
 
     public async Task<int?> Add(Player player)
     {
-        var createdPlayer = _context.Players.Add(player);
+        var createdPlayer = await _context.Players.AddAsync(player);
         await _context.SaveChangesAsync();
         return createdPlayer?.Entity.Id;
     }
 
     public async Task<Player?> Get(int id)
     {
-        var players = await GetPlayers();
-        return players.Find(p => p.Id == id);
+        return await FindPlayer(id);
     }
 
     public async Task<List<Player>> GetAll()
     {
-        return await GetPlayers();
+        return await _context.Players.ToListAsync();
     }
 
     public async Task<bool> Remove(int id)
     {
-        var players = await GetPlayers();
-        var player = players.Find(p => p.Id == id);
+        var player = await FindPlayer(id);
         if (player is null)
             return false;
 
-        players.Remove(player);
+        _context.Players.Remove(player);
         await _context.SaveChangesAsync();
         return true;
     }
 
     public async Task<bool> Update(int id, Player requestPlayer)
     {
-        var players = await GetPlayers();
-        var player = players.Find(p => p.Id == id);
+        var player = await FindPlayer(id);
         if (player is null)
             return false;
 
@@ -56,9 +53,9 @@ public class PlayerService : IPlayerService
         return true;
     }
 
-    private async Task<List<Player>> GetPlayers()
+    private async Task<Player?> FindPlayer(int id)
     {
-        return await _context.Players.ToListAsync();
-    }        
+        return await _context.Players.FindAsync(id);
+    }
 }
 

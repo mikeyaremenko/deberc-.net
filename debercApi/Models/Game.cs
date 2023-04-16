@@ -13,4 +13,5 @@ public class Game
     public Player? Dealer { get; set; }
     public int OpenPoints { get; set; }
     public List<Round> Rounds { get; set; } = new List<Round>();
+    public GameStatus Status { get; set; }
 }

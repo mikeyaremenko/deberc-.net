@@ -113,6 +113,9 @@ namespace debercApi.Migrations
                     b.Property<int?>("SecondTeamId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DealerId");

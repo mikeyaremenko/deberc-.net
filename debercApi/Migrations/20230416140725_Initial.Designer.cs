@@ -12,7 +12,7 @@ using debercApi.Data;
 namespace debercApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230416130640_Initial")]
+    [Migration("20230416140725_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -114,6 +114,9 @@ namespace debercApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SecondTeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

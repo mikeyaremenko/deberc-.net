@@ -61,7 +61,8 @@ namespace debercApi.Migrations
                     FirstTeamId = table.Column<int>(type: "int", nullable: true),
                     SecondTeamId = table.Column<int>(type: "int", nullable: true),
                     DealerId = table.Column<int>(type: "int", nullable: true),
-                    OpenPoints = table.Column<int>(type: "int", nullable: false)
+                    OpenPoints = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
