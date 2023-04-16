@@ -1,6 +1,7 @@
 global using Microsoft.EntityFrameworkCore;
 global using debercApi.Data;
 using debercApi.Services.PlayerService;
+using debercApi.Services.GameService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();
