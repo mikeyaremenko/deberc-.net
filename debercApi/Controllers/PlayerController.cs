@@ -32,7 +32,7 @@ public class PlayerController : ControllerBase
     public async Task<ActionResult<int?>> Add(Player player)
     {
         var id = await _playerService.Add(player);
-        return Ok(id);
+        return (id is null) ? BadRequest($"Player could not be created") : Ok(id);
     }
 
     [HttpPut("{id}")]
