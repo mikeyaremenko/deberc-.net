@@ -2,10 +2,8 @@
 
 namespace debercApi.Models;
 
-public class Game
+public class Game : Entity
 {
-    [Key]
-    public int Id { get; set; }
     [MaxLength(32)]
     public string Name { get; set; } = string.Empty;
     public Team? FirstTeam { get; set; }

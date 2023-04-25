@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace debercApi.Models;
 
-namespace debercApi.Models;
-
-public class Combination
+public class Combination : Entity
 {
-    [Key]
-    public int Id { get; set; }
     public CombinationType Type { get; set; }
     public Team? OwnerTeam { get; set; }
     public int Score { get; set; }

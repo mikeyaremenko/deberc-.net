@@ -2,10 +2,8 @@
 
 namespace debercApi.Models;
 
-public class Trick
+public class Trick : Entity
 {
-    [Key]
-    public int Id { get; set; }
     public Team? WinnerTeam { get; set; }
     public Player? StarterPlayer { get; set; }
     public int Score { get; set; }

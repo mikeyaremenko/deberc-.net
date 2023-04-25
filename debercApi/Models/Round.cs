@@ -2,10 +2,8 @@
 
 namespace debercApi.Models;
 
-public class Round
+public class Round : Entity
 {
-    [Key]
-    public int Id { get; set; }
     public Card? DisplayedCard { get; set; }
     public Player? DutyPlayer { get; set; }
     public int OrderSuit { get; set; }

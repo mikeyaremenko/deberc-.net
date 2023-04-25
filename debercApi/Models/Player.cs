@@ -2,13 +2,12 @@
 
 namespace debercApi.Models;
 
-public class Player
+public class Player : Entity
 {
-    [Key]
-    public int Id { get; set; }
     [MaxLength(64)]
     public string Name { get; set; } = string.Empty;
     [MaxLength(64)]
     public string Password { get; set; } = string.Empty;
+    public byte[]? Image { get; set; } 
     public int Index { get; set; }
 }

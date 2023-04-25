@@ -2,7 +2,7 @@
 
 namespace debercApi.Models;
 
-public class Team : Entity
+public class User : Entity
 {
     [MaxLength(32)]
     public string Name { get; set; } = string.Empty;
