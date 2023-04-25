@@ -36,14 +36,14 @@ public class GameController : ControllerBase
         return (id is null) ? BadRequest($"Game could not be created") : Ok(id);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id}/start")]
     public async Task<ActionResult<bool>> Start(int id)
     {
         var isStarted = await _gameService.Start(id);
         return (isStarted) ? Ok(id) : GameNotFound(id);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id}/finish")]
     public async Task<ActionResult<bool>> Finish(int id)
     {
         var isFinished = await _gameService.Finish(id);

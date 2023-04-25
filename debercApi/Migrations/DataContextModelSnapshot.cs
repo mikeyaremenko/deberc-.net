@@ -150,7 +150,7 @@ namespace debercApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Player");
+                    b.ToTable("Players");
                 });
 
             modelBuilder.Entity("debercApi.Models.Round", b =>
@@ -194,7 +194,7 @@ namespace debercApi.Migrations
 
                     b.HasIndex("VotePlayerId");
 
-                    b.ToTable("Round");
+                    b.ToTable("Rounds");
                 });
 
             modelBuilder.Entity("debercApi.Models.Team", b =>
@@ -225,7 +225,7 @@ namespace debercApi.Migrations
 
                     b.HasIndex("SecondPlayerId");
 
-                    b.ToTable("Team");
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("debercApi.Models.Trick", b =>
@@ -256,7 +256,7 @@ namespace debercApi.Migrations
 
                     b.HasIndex("WinnerTeamId");
 
-                    b.ToTable("Trick");
+                    b.ToTable("Tricks");
                 });
 
             modelBuilder.Entity("debercApi.Models.Card", b =>

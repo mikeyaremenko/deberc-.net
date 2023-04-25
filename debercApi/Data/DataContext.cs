@@ -10,9 +10,9 @@ public class DataContext : DbContext
     public DbSet<Combination> Combinations { get; set; }
     public DbSet<Game> Games { get; set; }
     public DbSet<Player> Players { get; set; }
-    public DbSet<Player> Rounds { get; set; }
-    public DbSet<Player> Teams { get; set; }
-    public DbSet<Player> Tricks { get; set; }
+    public DbSet<Round> Rounds { get; set; }
+    public DbSet<Team> Teams { get; set; }
+    public DbSet<Trick> Tricks { get; set; }
 
     public DataContext(DbContextOptions<DataContext> options, IConfiguration configuration) : base(options)
     {
@@ -22,6 +22,9 @@ public class DataContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+        optionsBuilder.UseSqlServer(
+            _configuration.GetConnectionString("DefaultConnection"),
+            sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
+        );
     }
 }
